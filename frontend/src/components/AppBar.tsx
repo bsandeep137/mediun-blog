@@ -24,7 +24,10 @@ export const AppBar = ()=>{
                         
                     </div>}
             </div>
-            <Avatar authorName={localStorage.getItem("userName") || "An"} size="big"/>
+            <div>
+                <Avatar authorName={localStorage.getItem("userName") || "An"} size="big"/>
+            </div>
+            
         </div>
         
     </div>
