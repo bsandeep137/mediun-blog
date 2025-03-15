@@ -19,6 +19,7 @@ model User{
   name String?
   password String 
   posts Post[]
+  bio String?
 }
 
 model Post{
@@ -28,4 +29,5 @@ model Post{
   author User @relation(fields: [authorId] , references: [id])
   authorId String
   published Boolean @default(false)
+  publishedOn DateTime @default(now())
 }

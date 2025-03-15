@@ -15,6 +15,7 @@ export const blogRouter = new Hono<{
 }>();
 
 blogRouter.use('/*', async (c, next) => {
+    
     const header = c.req.header('Authorization') || "";
     console.log(header);
     const token = header.split(" ")[1];
@@ -22,6 +23,7 @@ blogRouter.use('/*', async (c, next) => {
     console.log("user-------"+user.id);
     if (user.id) {
         c.set("userId", user.id as string)
+
         await next();
     }
     else{
@@ -50,6 +52,12 @@ blogRouter.post('/', async(c) => {
             })
         }
     const authorId = c.get("userId");
+    const userData = await client.user.findFirst({
+        where:{
+            id: authorId
+        }
+    })
+    console.log("body------------", body)
     const res = await client.post.create({
         data:{
             title: body.title,
@@ -64,6 +72,7 @@ blogRouter.post('/', async(c) => {
 })
 
 blogRouter.put('/', async (c) => {
+    console.log("In blog------------------")
     const client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -103,6 +112,16 @@ blogRouter.get('/bulk', async(c)=>{
 
     try{
         const blogs = await client.post.findMany({
+            select:{
+                id: true,
+                title: true,
+                description: true,
+                author:{
+                    select:{
+                        name: true
+                    }
+                }
+            },
             where:{
                 authorId
             }
@@ -134,7 +153,19 @@ blogRouter.get('/:id', async(c) => {
         const blog = await client.post.findFirst({
             where:{
                 id
-            }
+            },
+            select:{
+                id: true,
+                title: true,
+                description: true,
+                author:{
+                    select:{
+                        name: true
+                    }
+                },
+                published:true,
+                publishedOn: true
+            },
         })
     
         return c.json({

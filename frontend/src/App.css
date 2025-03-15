@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+    --text-blog: 0.75rem; 
+    --font-display: "source-serif-pro", "Georgia", "Cambria" "Oswald", "sans-serif"; 
+    --color-darkGrey: #242424;
+    --color-background: #F5F5F5 ;
+  }

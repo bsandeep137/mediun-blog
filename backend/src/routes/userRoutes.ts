@@ -29,7 +29,9 @@ userRouter.post('/signup', async (c) => {
     const user = await client.user.create({
         data: {
             email: body.email,
-            password: body.password
+            password: body.password,
+            name: body.name,
+            bio: body.bio
         }
     })
     const token = await sign({ id: user.id }, c.env.JWT_SECRET)
@@ -56,8 +58,14 @@ userRouter.post('/signin', async (c) => {
         where: {
             email: body.email,
             password: body.password
+        },
+        select:{
+            name:true,
+            id: true,
+            bio:true
         }
     });
+    console.log("user----------", user)
     if (!user) {
         c.status(403);
         return c.json({
@@ -66,6 +74,6 @@ userRouter.post('/signin', async (c) => {
     }
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
     return c.json({
-        jwt
+        jwt,user
     })
 })
