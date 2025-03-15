@@ -45,7 +45,7 @@ export const BlogCard = ({ id, authorName, title, description, publishedDate }: 
 export function Avatar({ authorName , size = "small" }: { authorName: string | undefined
     size?: string
  }) {
-    return <div className={`inline-flex items-center justify-center size-${size === "small" ? 4 :6} rounded-full bg-gray-500 text-[.6rem] font-semibold text-white`}>
+    return <div className={`inline-flex items-center justify-center h-${size === "small" ? 24 : 16} w-${size === "small" ? 24 : 16} rounded-full bg-gray-500 text-[.6rem] font-semibold text-white`}>
         {authorName? authorName[0]: ""}
     </div>
 }
