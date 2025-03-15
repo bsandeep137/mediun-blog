@@ -2,7 +2,7 @@ import { BlogCard } from "../components/BlogCard"
 import { useBlogs } from "../hooks"
 
 export const Blogs = () => {
-    const {loading, blogs } = useBlogs();
+    const { blogs } = useBlogs();
     return <div className="flex  justify-center mt-7">
         <div className="max-w-xl">
             {blogs.map(blog =>
