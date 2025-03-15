@@ -4,7 +4,7 @@ import { useBlog } from "../hooks";
 
 export const FullBlog = ()=>{
     const {id} = useParams();
-    const {blog, loading} = useBlog({id})
+    const {blog} = useBlog({id})
     return <div className="grid grid-cols-16 ">
        
        <div className="col-span-12  ml-15 pr-10 pt-7">
